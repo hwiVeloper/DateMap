@@ -1,0 +1,8 @@
+# Example of Database Connection Properties
+# You can change values to connect your database
+# You alse have to change this file name to 'database.properties'
+db.url=url
+db.port=port
+db.name=dbname
+db.username=username
+db.password=password
