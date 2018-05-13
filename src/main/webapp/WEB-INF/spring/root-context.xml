@@ -31,5 +31,5 @@
       <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
    </bean>
 
-   <context:component-scan base-package="com.secretbox.persistence"></context:component-scan>
+   <context:component-scan base-package="com.datemap.dao"></context:component-scan>
 </beans>

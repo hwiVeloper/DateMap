@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.datemap.mappers.MapMapper">
+	<insert id="createMap">
+		INSERT INTO map(latitude, longtitude, place_name) 
+		VALUES(
+			#{latitude},
+			#{longtitude},
+			#{placeName}
+		)
+	</insert>
+	<insert id="postMap">
+		INSERT INTO post(title, content, map_idx, member_id)
+		VALUES(
+			#{title},
+			#{content},
+			#{mapIdx},
+			#{memberId}
+		)
+	</insert>
+	
+	<select id ="list" resultType = "MapRegisterVO">
+	
+		SELECT post.title, post.content, post.member_id
+		FROM map
+		JOIN post on map.idx = post.map_idx
+		AND map.latitude=#{lat}
+		AND map.longtitude=#{lng}
+	</select>
+</mapper>
