@@ -12,28 +12,6 @@ $(document).ready(function() {
 	$('.datepicker').datepicker({
 		format: 'yyyy-mm-dd'
 	});
-	
-	/* $('#joinSubmit').click(function() {
-		$.ajax({
-			method : 'POST',
-			url : "/join",
-			headers: { 
-		        'Accept': 'application/json',
-		        'Content-Type': 'application/json' 
-		    },
-			dataType : "text",
-			data : JSON.stringify({
-				id: $('#id').val(),
-				password: $('#password').val()
-			}),
-			success : function() {
-				console.log('success');
-			},
-			error : function(){
-				alert('error');
-			}
-		});
-	}); */
 });
 </script>
 
@@ -45,7 +23,7 @@ $(document).ready(function() {
 		<div class="col s12 m5 l4">
 			<h3>회원가입</h3>
 			<div class="row">
-				<form id="joinForm">
+				<form id="joinForm" method="POST" action="/join">
 					<!-- email -->
 					<div class="input-field col s12">
 						<input type="email" name="id" id="id" required />
@@ -95,7 +73,7 @@ $(document).ready(function() {
 
 					<!-- button -->
 					<div class="right-align">
-						<button id="joinSubmit" class="btn waves-effect waves-light" type="submit" name="action">
+						<button id="joinSubmit" class="btn waves-effect waves-light" type="submit">
 							회원가입 <i class="material-icons right">send</i>
 						</button>
 					</div>
