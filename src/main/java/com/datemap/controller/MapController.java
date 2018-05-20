@@ -40,7 +40,7 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 
 			List<MapRegisterVO> list = mapdao.list(vo);
 			model.addAttribute("list",list);
-			logger.debug(list.toString());
+			logger.info(list.toString());
 			return "list";
 	}
 	@RequestMapping(value = "/list", method = RequestMethod.POST)
@@ -48,14 +48,25 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 		ResponseEntity<String> entity = null;
 		try {
 			logger.info("****"+vo.toString());
-			MapDTO mapDto = new MapDTO();
-			mapDto.setLatitude(vo.getLat());
-			mapDto.setLongtitude(vo.getLng());
-			mapDto.setPlaceName(vo.getPlaceName());
 			
+			MapRegisterVO rvo = new MapRegisterVO();
+			rvo.setLat(rvo.getLat());
+			rvo.setLng(rvo.getLng());
+		    List<MapRegisterVO> list = mapdao.list(rvo);
+		      
+		    if(list != null){
+		    	logger.info("11111"+vo.toString());
+				MapDTO mapDto = new MapDTO();
+				mapDto.setLatitude(vo.getLat());
+				mapDto.setLongtitude(vo.getLng());
+				mapDto.setPlaceName(vo.getPlaceName());
+				
+				
+				
+				mapdao.createMap(mapDto);
 			
-			mapdao.createMap(mapDto);
-			
+		    }
+		    logger.info("2222"+vo.toString());
 			PostDTO postDto = new PostDTO();
 			postDto.setTitle(vo.getTitle());
 			postDto.setContent(vo.getContent());
@@ -63,6 +74,21 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 			postDto.setMemberId("hwi");
 		
 			mapdao.createPost(postDto);
+			
+			//model.addAttribute("event", event);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value = "/listAjax", method = RequestMethod.POST)
+	public ResponseEntity<String> listAjax(@RequestBody MapRegisterVO vo) {
+		ResponseEntity<String> entity = null;
+		try {
+			logger.info("ajax ====> " + vo.toString());
 			
 			//model.addAttribute("event", event);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);

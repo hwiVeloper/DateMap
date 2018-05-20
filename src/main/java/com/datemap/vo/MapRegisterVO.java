@@ -6,7 +6,7 @@ public class MapRegisterVO {
 	private String title;
 	private String content;
 	private int mapIdx;
-	private int memberId;
+	private String memberId;
 	private String placeName;
 	public String getLat() {
 		return lat;
@@ -38,10 +38,10 @@ public class MapRegisterVO {
 	public void setMapIdx(int mapIdx) {
 		this.mapIdx = mapIdx;
 	}
-	public int getMemberId() {
+	public String getMemberId() {
 		return memberId;
 	}
-	public void setMemberId(int memberId) {
+	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
 	public String getPlaceName() {

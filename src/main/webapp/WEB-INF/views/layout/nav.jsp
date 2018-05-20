@@ -1,4 +1,6 @@
- <main>
+</head>
+<body>
+	<main>
 	<nav>
 		<div class="nav-wrapper navbar-fixed indigo">
 			<a href="#" class="brand-logo">Logo</a>

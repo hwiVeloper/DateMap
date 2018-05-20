@@ -23,7 +23,11 @@
 	
 	<select id ="list" resultType = "MapRegisterVO">
 	
-		SELECT post.title, post.content, post.member_id
+		SELECT
+			post.title AS "title",
+			post.content AS "content",
+			post.member_id AS "memberId",
+			post.map_idx AS "mapIdx"
 		FROM map
 		JOIN post on map.idx = post.map_idx
 		AND map.latitude=#{lat}
