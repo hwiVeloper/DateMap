@@ -8,12 +8,25 @@
 	response.setHeader("Pragma","no-cache");
 	response.setDateHeader("Expires",0);
 %>
+
+<c:if test="${ !empty flashMsg }">
+<script>
+M.toast({html: '<c:out value="${ flashMsg }" />'});
+</script>
+</c:if>
+
+<c:if test="${ !empty logoutMsg }">
+<script>
+M.toast({html: '<c:out value="${ logoutMsg }" />'});
+</script>
+</c:if>
+
    <div class="valign-wrapper" style="height: 100vh;">
       <div class="row">
          <div class="col s12">
             <h3>로그인</h3>
             <div class="row">
-               <form action="/loginPost" method="POST">
+               <form action="/login" method="POST">
                   <!-- email -->
                   <div class="input-field col s12">
                      <input type="email" name="email" id="email" /> 
