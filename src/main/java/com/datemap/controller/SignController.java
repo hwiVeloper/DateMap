@@ -24,14 +24,16 @@ public class SignController {
 	private SignService service;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model, @ModelAttribute("flashMsg") final String flashMsg,
+	public String login(Model model, @ModelAttribute("loginFailMsg") final String loginFailMsg,
 			@ModelAttribute("logoutMsg") final String logoutMsg) {
 		logger.info("===== GET login");
 		
-		if (flashMsg != null) {
-			model.addAttribute("flashMsg", flashMsg);
+		// 로그인 실패 메세지
+		if (loginFailMsg != null) {
+			model.addAttribute("loginFailMsg", loginFailMsg);
 		}
 		
+		// 로그아웃 메세지
 		if (logoutMsg != null) {
 			model.addAttribute("logoutMsg", logoutMsg);
 		}
@@ -53,7 +55,7 @@ public class SignController {
 			MemberDTO resultMember = service.login(dto);
 			
 			if (resultMember == null) {
-				ra.addFlashAttribute("flashMsg", "로그인 정보가 없습니다.");
+				ra.addFlashAttribute("loginFailMsg", "로그인 정보가 없습니다.");
 				return "redirect:/login";
 			} else {
 				logger.info("로그인 성공");
