@@ -1,7 +1,11 @@
 package com.datemap.controller;
 
+import java.util.Date;
+
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -12,9 +16,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.WebUtils;
 
 import com.datemap.dto.MemberDTO;
 import com.datemap.service.SignService;
+import com.datemap.vo.LoginVO;
 
 @Controller
 public class SignController {
@@ -43,16 +49,15 @@ public class SignController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(HttpServletRequest req, HttpSession session, RedirectAttributes ra, Model model) throws Exception {
-		logger.info("===== POST login");
-		
 		
 		try {
-			MemberDTO dto = new MemberDTO();
+			LoginVO vo = new LoginVO();
 			
-			dto.setId(req.getParameter("email"));
-			dto.setPassword(req.getParameter("password"));
+			vo.setId(req.getParameter("email"));
+			vo.setPassword(req.getParameter("password"));
+			vo.setUseCookie(Boolean.parseBoolean(req.getParameter("useCookie")));
 			
-			MemberDTO resultMember = service.login(dto);
+			MemberDTO resultMember = service.login(vo);
 			
 			if (resultMember == null) {
 				ra.addFlashAttribute("loginFailMsg", "로그인 정보가 없습니다.");
@@ -62,6 +67,14 @@ public class SignController {
 				
 				// 로그인 성공 후 세션 정보 세팅
 				session.setAttribute("session", resultMember);
+				
+				if (vo.isUseCookie()) {
+					int amount = 60 * 60 * 24 * 7;
+					
+					Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));
+					
+					service.keepLogin(vo.getId(), session.getId(), sessionLimit);
+				}
 				
 				return "redirect:/";
 			}
@@ -99,12 +112,28 @@ public class SignController {
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpSession session, RedirectAttributes ra, Model model) {
+	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session, RedirectAttributes ra, Model model) {
 		Object obj = session.getAttribute("session");
 		
 		if (obj != null) {
 			session.removeAttribute("session");
 			session.invalidate();
+		}
+		
+		if (obj != null) {
+			MemberDTO dto = (MemberDTO) obj;
+			
+			session.removeAttribute("session");
+			session.invalidate();
+			
+			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+			
+			if (loginCookie != null) {
+				loginCookie.setPath("/");
+				loginCookie.setMaxAge(0);
+				response.addCookie(loginCookie);
+//				service.keepLogin(dto.getId(), session.getId(), new Date());
+			}
 		}
 		
 		ra.addFlashAttribute("logoutMsg", "로그아웃되었습니다.");

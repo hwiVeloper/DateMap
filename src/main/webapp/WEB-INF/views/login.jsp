@@ -21,7 +21,7 @@ M.toast({html: '<c:out value="${ logoutMsg }" />'});
 </script>
 </c:if>
 
-<style>
+<style type="text/css">
 body {
 	display: flex;
 	min-height: 100vh;
@@ -50,7 +50,43 @@ body {
 	border-bottom: 2px solid;
 	box-shadow: none;
 }
+
+.red:checked + span:before {
+	top: -4px;
+	left: -3px;
+	width: 12px;
+	height: 22px;
+	border-top: 2px solid transparent;
+	border-left: 2px solid transparent;
+	border-right: 2px solid red!important; /* You need to change the colour here */
+	border-bottom: 2px solid red!important; /* And here */
+	-webkit-transform: rotate(40deg);
+	-moz-transform: rotate(40deg);
+	-ms-transform: rotate(40deg);
+	-o-transform: rotate(40deg);
+	transform: rotate(40deg);
+	-webkit-backface-visibility: hidden;
+	-webkit-transform-origin: 100% 100%;
+	-moz-transform-origin: 100% 100%;
+	-ms-transform-origin: 100% 100%;
+	-o-transform-origin: 100% 100%;
+	transform-origin: 100% 100%;
+}
 </style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	// checkbox value setting
+	$('#useCookieCheckbox').click(function() {
+		if ( $('#useCookie').val() == 'false' ) {
+			$('#useCookie').val('true');
+		} else
+		if ( $('#useCookie').val() == 'true' ) {
+			$('#useCookie').val('false');
+		}
+	});
+});
+</script>
 
 <div class="section"></div>
 <div class="center-align">
@@ -80,6 +116,13 @@ body {
 						<input class="validate" type="password" name="password" id="password" />
 						<label for="password">비밀번호를 입력해 주세요.</label>
 					</div>
+					<div class="input-field col s12">
+						<label>
+							<input type="hidden" name="useCookie" value="false" id="useCookie" />
+							<input type="checkbox" class="red" id="useCookieCheckbox"/>
+							<span>로그인 유지</span>
+						</label>
+					</div>					
 					<label style="float: right;">
 					<a class="pink-text" href="#!"><b>비밀번호 찾기</b></a>
 					</label>
@@ -88,7 +131,7 @@ body {
 				<br />
 				<div class="center-align">
 					<div class="row">
-						<button type="submit" name="" class="col s12 btn btn-large waves-effect indigo">로그인<i class="material-icons right">send</i></button>
+						<button type="submit" class="col s12 btn btn-large waves-effect indigo">로그인<i class="material-icons right">send</i></button>
 					</div>
 				</div>
 			</form>

@@ -36,4 +36,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE id = #{id}
 		AND password = #{password}
 	</select>
+	
+	<!-- Keep Login -->
+	<update id="keepLogin">
+		UPDATE member
+		SET session_key = #{sessionId},
+			session_limit = #{next}
+		WHERE id = #{uid}
+	</update>
+	
+	<!-- Check User with Session Key -->
+	<select id="checkUserWithSessionKey" resultType="MemberDTO">
+		SELECT *
+		FROM member
+		WHERE session_key = #{value}
+		AND session_limit > now()
+	</select>
 </mapper>
