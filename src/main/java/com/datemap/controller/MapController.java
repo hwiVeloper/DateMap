@@ -1,6 +1,7 @@
 package com.datemap.controller;
 
 import java.util.Date;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -35,8 +36,8 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 	public String register(Locale locale, Model model) throws Exception {
 			
 			MapRegisterVO vo = new MapRegisterVO();
-			vo.setLat("37.579617000000");
-			vo.setLng("126.977041000000");
+			vo.setLat(37.579617000000);
+			vo.setLng(126.97704099999999);
 
 			List<MapRegisterVO> list = mapdao.list(vo);
 			model.addAttribute("list",list);
@@ -50,6 +51,7 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 			logger.info("****"+vo.toString());
 			
 			MapRegisterVO rvo = new MapRegisterVO();
+			logger.info("*rvo*"+rvo.toString());
 			rvo.setLat(rvo.getLat());
 			rvo.setLng(rvo.getLng());
 		    List<MapRegisterVO> list = mapdao.list(rvo);
@@ -85,16 +87,29 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 	}
 	
 	@RequestMapping(value = "/listAjax", method = RequestMethod.POST)
-	public ResponseEntity<String> listAjax(@RequestBody MapRegisterVO vo) {
-		ResponseEntity<String> entity = null;
+	public ResponseEntity<List<MapRegisterVO>> listAjax(Model model,@RequestBody MapRegisterVO vo) {
+		ResponseEntity<List<MapRegisterVO>> entity = null;
 		try {
-			logger.info("ajax ====> " + vo.toString());
 			
-			//model.addAttribute("event", event);
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			
+			MapRegisterVO rvo = new MapRegisterVO();
+			logger.info("ajax lat====> " + vo.getLat() + vo.getLng());
+			rvo.setLat(vo.getLat());
+			rvo.setLng(vo.getLng());
+			//rvo.setLat(37.579617000000);
+			//rvo.setLng(126.977041000000);
+
+		    List<MapRegisterVO> list = mapdao.list(rvo);
+		    
+		    logger.info("rvo"+rvo.toString());
+		    //model.addAttribute("list",list);
+			logger.info("ajaxlist"+ list.toString());
+			//return "list";
+			
+			entity = new ResponseEntity<List<MapRegisterVO>>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<List<MapRegisterVO>>(HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}

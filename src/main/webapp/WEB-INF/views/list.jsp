@@ -172,7 +172,17 @@ html, body {
                       lng: lng
                   }),
                   success: function(data){
-                      console.log('lisAjax');
+                	  var obj = JSON.parse(data);
+                	  $("#tbody *").remove();
+                	  //var str = document.getElementById("tbody");
+                	  for (var i=0; i<obj.length; i++){
+                		  $('#tbody').append(
+                                  $('<tr>')
+                                      .append($('<td>').append(obj[i].title).append($('</td>')))
+                                      .append($('<td>').append(obj[i].content).append($('</td>')))
+                                      .append($('<td>').append(obj[i].memberId).append($('</td>')))
+                              );
+ 					  } 
                   },
                   error: function(error){
                       console.log(error);
@@ -228,7 +238,7 @@ html, body {
 					</tr>
 				</thead>
 
-				<tbody>
+				<tbody id="tbody">
 				<c:forEach items="${list}" var="data">
 					<tr>
 						<td><a class="modal-trigger" href="#modal2">${data.title}</a></td>
@@ -236,7 +246,7 @@ html, body {
 						<td>${data.memberId}</td>
 					</tr>
 					
-			</c:forEach>
+				</c:forEach>
 				</tbody>
 			</table>
 
@@ -247,11 +257,11 @@ html, body {
 	<form id="updatefrm">
 		<div id="modal2" class="modal">
 			<div class="modal-content">
-				lat : <input type="text" name="lat" id="lat" value="" readonly>
-				lng : <input type="text" name="lng" id="lng" value="" readonly>
-				장소 : <input type="text" name="placeName" id="placeName" value="">
-				제목 : <input type="text" name="title" id="title" value=""> 내용
-				: <input type="text" name="content" id="content" value="">
+				lat : <input type="text" name="lat" id="uplat" value="" readonly>
+				lng : <input type="text" name="lng" id="uplng" value="" readonly>
+				장소 : <input type="text" name="placeName" id="upplaceName" value="">
+				제목 : <input type="text" name="title" id="uptitle" value=""> 내용
+				: <input type="text" name="content" id="upcontent" value="">
 
 			</div>
 			<div class="modal-footer">

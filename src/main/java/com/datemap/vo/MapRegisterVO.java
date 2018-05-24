@@ -1,23 +1,23 @@
 package com.datemap.vo;
 
 public class MapRegisterVO {
-	private String lat;
-	private String lng;
+	private double lat;
+	private double lng;
 	private String title;
 	private String content;
 	private int mapIdx;
 	private String memberId;
 	private String placeName;
-	public String getLat() {
+	public double getLat() {
 		return lat;
 	}
-	public void setLat(String lat) {
+	public void setLat(double lat) {
 		this.lat = lat;
 	}
-	public String getLng() {
+	public double getLng() {
 		return lng;
 	}
-	public void setLng(String lng) {
+	public void setLng(double lng) {
 		this.lng = lng;
 	}
 	public String getTitle() {
