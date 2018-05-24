@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE member
 		SET session_key = #{sessionId},
 			session_limit = #{next}
-		WHERE id = #{uid}
+		WHERE id = #{id}
 	</update>
 	
 	<!-- Check User with Session Key -->

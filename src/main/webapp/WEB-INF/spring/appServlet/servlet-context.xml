@@ -36,7 +36,7 @@
 	<!-- Interceptor 설정 -->
 	<interceptors>
 		<interceptor>
-			<mapping path="/login" />
+			<mapping path="/loginAttempt" />
 			<beans:ref bean="loginInterceptor" />
 		</interceptor>
 	</interceptors>

@@ -43,7 +43,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		// 로그인 된 세션이 없다면, 로그인 화면으로 넘긴다.
 		HttpSession session = request.getSession();
 		
-		if (session.getAttribute("login") == null) {
+		if (session.getAttribute("session") == null) {
 			logger.info("current user is not logined");
 			
 			// 목적지(원래 가려고 했던 곳) 저장
@@ -54,7 +54,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			// 쿠키 처리
 			if (loginCookie != null) {
 				MemberDTO memberDTO = new MemberDTO();
-//				service.checkLoginBefore(loginCookie.getValue());
+				service.checkLoginBefore(loginCookie.getValue());
 				
 				logger.info("MemberDTO : " + memberDTO);
 				

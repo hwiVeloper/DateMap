@@ -47,7 +47,7 @@ public class SignController {
 		return "login";
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/loginAttempt", method = RequestMethod.POST)
 	public String login(HttpServletRequest req, HttpSession session, RedirectAttributes ra, Model model) throws Exception {
 		
 		try {
@@ -112,13 +112,9 @@ public class SignController {
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session, RedirectAttributes ra, Model model) {
+	public String logout(HttpServletRequest request, HttpServletResponse response,
+			HttpSession session, RedirectAttributes ra, Model model) throws Exception {
 		Object obj = session.getAttribute("session");
-		
-		if (obj != null) {
-			session.removeAttribute("session");
-			session.invalidate();
-		}
 		
 		if (obj != null) {
 			MemberDTO dto = (MemberDTO) obj;
@@ -132,7 +128,7 @@ public class SignController {
 				loginCookie.setPath("/");
 				loginCookie.setMaxAge(0);
 				response.addCookie(loginCookie);
-//				service.keepLogin(dto.getId(), session.getId(), new Date());
+				service.keepLogin(dto.getId(), session.getId(), new Date());
 			}
 		}
 		

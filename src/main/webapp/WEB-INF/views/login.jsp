@@ -11,13 +11,19 @@
 
 <c:if test="${ !empty loginFailMsg }">
 <script>
-M.toast({html: '<c:out value="${ loginFailMsg }" />'});
+M.toast({
+	html: '<c:out value="${ loginFailMsg }" />',
+	classes: 'red',
+});
 </script>
 </c:if>
 
 <c:if test="${ !empty logoutMsg }">
 <script>
-M.toast({html: '<c:out value="${ logoutMsg }" />'});
+M.toast({
+	html: '<c:out value="${ logoutMsg }" />',
+	classes: 'indigo',
+});
 </script>
 </c:if>
 
@@ -99,7 +105,7 @@ $(document).ready(function() {
 	<div class="container">
 		<div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
 
-			<form class="col s12" method="post" action="/login">
+			<form class="col s12" method="post" action="/loginAttempt">
 				<div class='row'>
 					<div class='col s12'></div>
 				</div>
