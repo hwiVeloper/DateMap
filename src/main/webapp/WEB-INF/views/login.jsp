@@ -130,7 +130,7 @@ $(document).ready(function() {
 						</label>
 					</div>					
 					<label style="float: right;">
-					<a class="pink-text" href="#!"><b>비밀번호 찾기</b></a>
+						<a class="pink-text" href="#!"><b>비밀번호 찾기</b></a>
 					</label>
 				</div>
 
