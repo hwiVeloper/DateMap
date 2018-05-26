@@ -15,7 +15,5 @@
 <script src="/resources/js/jquery-3.1.1.min.js" type="text/javascript"></script>
 <script src="/resources/js/materialize.min.js" type="text/javascript"></script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChK7nSU2T3oBzB1zR2hjUqsRJIRDwFkv0&libraries=places&callback=initAutocomplete" async defer></script>
-
 <title>테스트 페이지</title>
 	

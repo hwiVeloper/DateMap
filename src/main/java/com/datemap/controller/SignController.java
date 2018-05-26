@@ -34,8 +34,11 @@ public class SignController {
 			@ModelAttribute("logoutMsg") final String logoutMsg) {
 		logger.info("===== GET login");
 		
+		logger.info(loginFailMsg);
+		logger.info(logoutMsg);
+		
 		// 로그인 실패 메세지
-		if (loginFailMsg != null) {
+		if (!loginFailMsg.isEmpty()) {
 			model.addAttribute("loginFailMsg", loginFailMsg);
 		}
 		
@@ -59,7 +62,7 @@ public class SignController {
 			
 			MemberDTO resultMember = service.login(vo);
 			
-			if (resultMember == null) {
+			if (null == resultMember) {
 				ra.addFlashAttribute("loginFailMsg", "로그인 정보가 없습니다.");
 				return "redirect:/login";
 			} else {
