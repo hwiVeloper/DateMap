@@ -66,6 +66,15 @@ $(document).ready(function() {
 		format: 'yyyy-mm-dd'
 	});
 });
+
+function submitForm() {
+	alert("확인");
+	// 비밀번호 체크
+	if ($('#password').val() != $('#password-confirm').val() ) {
+		alert('비밀번호 입력을 확인해 주세요.');
+		return false;
+	}
+}
 </script>
 
 <div class="row">
@@ -78,7 +87,7 @@ $(document).ready(function() {
 		<div class="container">
 			<div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
 			
-				<form class="col s12" id="joinForm" method="POST" action="/join">
+				<form class="col s12" id="joinForm" name="joinForm" method="POST" action="/join" onsubmit="return submitForm()">
 					
 					<div class="row">
 						<!-- email -->
@@ -128,7 +137,7 @@ $(document).ready(function() {
 						<!-- button -->
 						<div class="center-align">
 							<div class="row">
-								<button type="submit" class="col s12 btn btn-large waves-effect indigo">회원등록<i class="material-icons right">check</i></button>
+								<button id="btnForm" type="submit" class="col s12 btn btn-large waves-effect indigo">회원등록<i class="material-icons right">check</i></button>
 							</div>
 						</div>
 					</div>
