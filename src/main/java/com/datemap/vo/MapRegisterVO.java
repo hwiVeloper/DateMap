@@ -1,23 +1,23 @@
 package com.datemap.vo;
 
 public class MapRegisterVO {
-	private String lat;
-	private String lng;
+	private double lat;
+	private double lng;
 	private String title;
 	private String content;
-	private int mapIdx;
-	private int memberId;
+	private String mapId;
+	private String memberId;
 	private String placeName;
-	public String getLat() {
+	public double getLat() {
 		return lat;
 	}
-	public void setLat(String lat) {
+	public void setLat(double lat) {
 		this.lat = lat;
 	}
-	public String getLng() {
+	public double getLng() {
 		return lng;
 	}
-	public void setLng(String lng) {
+	public void setLng(double lng) {
 		this.lng = lng;
 	}
 	public String getTitle() {
@@ -32,16 +32,16 @@ public class MapRegisterVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getMapIdx() {
-		return mapIdx;
+	public String getMapId() {
+		return mapId;
 	}
-	public void setMapIdx(int mapIdx) {
-		this.mapIdx = mapIdx;
+	public void setMapId(String mapId) {
+		this.mapId = mapId;
 	}
-	public int getMemberId() {
+	public String getMemberId() {
 		return memberId;
 	}
-	public void setMemberId(int memberId) {
+	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
 	public String getPlaceName() {
@@ -52,8 +52,8 @@ public class MapRegisterVO {
 	}
 	@Override
 	public String toString() {
-		return "MapRegisterVO [lat=" + lat + ", lng=" + lng + ", title=" + title + ", content=" + content + ", mapIdx="
-				+ mapIdx + ", memberId=" + memberId + ", placeName=" + placeName + "]";
+		return "MapRegisterVO [lat=" + lat + ", lng=" + lng + ", title=" + title + ", content=" + content + ", mapId="
+				+ mapId + ", memberId=" + memberId + ", placeName=" + placeName + "]";
 	}
 	
 }

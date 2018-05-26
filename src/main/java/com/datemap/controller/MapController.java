@@ -1,6 +1,7 @@
 package com.datemap.controller;
 
 import java.util.Date;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -35,31 +36,41 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 	public String register(Locale locale, Model model) throws Exception {
 			
 			MapRegisterVO vo = new MapRegisterVO();
-			vo.setLat("37.579617000000");
-			vo.setLng("126.977041000000");
+			vo.setLat(37.579617000000);
+			vo.setLng(126.97704099999999);
 
 			List<MapRegisterVO> list = mapdao.list(vo);
 			model.addAttribute("list",list);
-			logger.debug(list.toString());
+			logger.info(list.toString());
 			return "list";
 	}
-	@RequestMapping(value = "/list", method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<String> register(@RequestBody MapRegisterVO vo) {
 		ResponseEntity<String> entity = null;
 		try {
 			logger.info("****"+vo.toString());
-			MapDTO mapDto = new MapDTO();
-			mapDto.setLatitude(vo.getLat());
-			mapDto.setLongtitude(vo.getLng());
-			mapDto.setPlaceName(vo.getPlaceName());
 			
+			MapRegisterVO rvo = new MapRegisterVO();
+			rvo.setLat(rvo.getLat());
+			rvo.setLng(rvo.getLng());
+		    List<MapRegisterVO> list = mapdao.list(rvo);
+		      
+		    if(list.size() == 0){
+		    	logger.info("11111"+vo.toString());
+				MapDTO mapDto = new MapDTO();
+				mapDto.setId(vo.getMapId());
+				mapDto.setLatitude(vo.getLat());
+				mapDto.setLongtitude(vo.getLng());
+				mapDto.setPlaceName(vo.getPlaceName());
+
+				mapdao.createMap(mapDto);
 			
-			mapdao.createMap(mapDto);
-			
+		    }
+		    logger.info("2222"+vo.toString());
 			PostDTO postDto = new PostDTO();
 			postDto.setTitle(vo.getTitle());
 			postDto.setContent(vo.getContent());
-			postDto.setMapIdx(1);
+			postDto.setMapId(vo.getMapId());
 			postDto.setMemberId("hwi");
 		
 			mapdao.createPost(postDto);
@@ -69,6 +80,34 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value = "/listAjax", method = RequestMethod.POST)
+	public ResponseEntity<List<MapRegisterVO>> listAjax(Model model,@RequestBody MapRegisterVO vo) {
+		ResponseEntity<List<MapRegisterVO>> entity = null;
+		try {
+			
+			
+			MapRegisterVO rvo = new MapRegisterVO();
+			logger.info("ajax lat====> " + vo.getLat() + vo.getLng());
+			rvo.setMapId(vo.getMapId());
+
+			//rvo.setLat(37.579617000000);
+			//rvo.setLng(126.977041000000);
+
+		    List<MapRegisterVO> list = mapdao.list(rvo);
+		    
+		    logger.info("rvo"+rvo.toString());
+		    //model.addAttribute("list",list);
+			logger.info("ajaxlist"+ list.toString());
+			//return "list";
+			
+			entity = new ResponseEntity<List<MapRegisterVO>>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<List<MapRegisterVO>>(HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}
