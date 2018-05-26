@@ -3,7 +3,7 @@ package com.datemap.dto;
 public class PostDTO {
 	private String title;
 	private String content;
-	private int mapIdx;
+	private String mapId;
 	private String memberId;
 	
 	public String getTitle() {
@@ -18,11 +18,11 @@ public class PostDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getMapIdx() {
-		return mapIdx;
+	public String getMapId() {
+		return mapId;
 	}
-	public void setMapIdx(int mapIdx) {
-		this.mapIdx = mapIdx;
+	public void setMapId(String mapId) {
+		this.mapId = mapId;
 	}
 	public String getMemberId() {
 		return memberId;
@@ -32,8 +32,7 @@ public class PostDTO {
 	}
 	@Override
 	public String toString() {
-		return "PostDTO [title=" + title + ", content=" + content + ", map_idx=" + mapIdx + ", member_id=" + memberId
-				+ "]";
+		return "PostDTO [title=" + title + ", content=" + content + ", mapId=" + mapId + ", memberId=" + memberId + "]";
 	}
 	
 	

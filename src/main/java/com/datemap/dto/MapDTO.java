@@ -1,10 +1,17 @@
 package com.datemap.dto;
 
 public class MapDTO {
+	private String id;
 	private double latitude;
 	private double longtitude;
 	private String placeName;
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public double getLatitude() {
 		return latitude;
 	}
@@ -25,8 +32,8 @@ public class MapDTO {
 	}
 	@Override
 	public String toString() {
-		return "MapDTO [latitude=" + latitude + ", longtitude=" + longtitude + ", place_name=" + placeName + "]";
+		return "MapDTO [id=" + id + ", latitude=" + latitude + ", longtitude=" + longtitude + ", placeName="
+				+ placeName + "]";
 	}
-	
 	
 }

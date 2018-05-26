@@ -44,27 +44,25 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 			logger.info(list.toString());
 			return "list";
 	}
-	@RequestMapping(value = "/list", method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<String> register(@RequestBody MapRegisterVO vo) {
 		ResponseEntity<String> entity = null;
 		try {
 			logger.info("****"+vo.toString());
 			
 			MapRegisterVO rvo = new MapRegisterVO();
-			logger.info("*rvo*"+rvo.toString());
 			rvo.setLat(rvo.getLat());
 			rvo.setLng(rvo.getLng());
 		    List<MapRegisterVO> list = mapdao.list(rvo);
 		      
-		    if(list != null){
+		    if(list.size() == 0){
 		    	logger.info("11111"+vo.toString());
 				MapDTO mapDto = new MapDTO();
+				mapDto.setId(vo.getMapId());
 				mapDto.setLatitude(vo.getLat());
 				mapDto.setLongtitude(vo.getLng());
 				mapDto.setPlaceName(vo.getPlaceName());
-				
-				
-				
+
 				mapdao.createMap(mapDto);
 			
 		    }
@@ -72,7 +70,7 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 			PostDTO postDto = new PostDTO();
 			postDto.setTitle(vo.getTitle());
 			postDto.setContent(vo.getContent());
-			postDto.setMapIdx(1);
+			postDto.setMapId(vo.getMapId());
 			postDto.setMemberId("hwi");
 		
 			mapdao.createPost(postDto);
@@ -94,8 +92,8 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 			
 			MapRegisterVO rvo = new MapRegisterVO();
 			logger.info("ajax lat====> " + vo.getLat() + vo.getLng());
-			rvo.setLat(vo.getLat());
-			rvo.setLng(vo.getLng());
+			rvo.setMapId(vo.getMapId());
+
 			//rvo.setLat(37.579617000000);
 			//rvo.setLng(126.977041000000);
 

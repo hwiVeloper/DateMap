@@ -5,7 +5,7 @@ public class MapRegisterVO {
 	private double lng;
 	private String title;
 	private String content;
-	private int mapIdx;
+	private String mapId;
 	private String memberId;
 	private String placeName;
 	public double getLat() {
@@ -32,11 +32,11 @@ public class MapRegisterVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getMapIdx() {
-		return mapIdx;
+	public String getMapId() {
+		return mapId;
 	}
-	public void setMapIdx(int mapIdx) {
-		this.mapIdx = mapIdx;
+	public void setMapId(String mapId) {
+		this.mapId = mapId;
 	}
 	public String getMemberId() {
 		return memberId;
@@ -52,8 +52,8 @@ public class MapRegisterVO {
 	}
 	@Override
 	public String toString() {
-		return "MapRegisterVO [lat=" + lat + ", lng=" + lng + ", title=" + title + ", content=" + content + ", mapIdx="
-				+ mapIdx + ", memberId=" + memberId + ", placeName=" + placeName + "]";
+		return "MapRegisterVO [lat=" + lat + ", lng=" + lng + ", title=" + title + ", content=" + content + ", mapId="
+				+ mapId + ", memberId=" + memberId + ", placeName=" + placeName + "]";
 	}
 	
 }

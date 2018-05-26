@@ -4,19 +4,20 @@
 
 <mapper namespace="com.datemap.mappers.MapMapper">
 	<insert id="createMap">
-		INSERT INTO map(latitude, longtitude, place_name) 
+		INSERT INTO map(id,latitude, longtitude, place_name) 
 		VALUES(
+			#{id},
 			#{latitude},
 			#{longtitude},
 			#{placeName}
 		)
 	</insert>
 	<insert id="postMap">
-		INSERT INTO post(title, content, map_idx, member_id)
+		INSERT INTO post(title, content, map_id, member_id)
 		VALUES(
 			#{title},
 			#{content},
-			#{mapIdx},
+			#{mapId},
 			#{memberId}
 		)
 	</insert>
@@ -27,10 +28,9 @@
 			post.title AS "title",
 			post.content AS "content",
 			post.member_id AS "memberId",
-			post.map_idx AS "mapIdx"
+			post.map_id AS "mapId"
 		FROM map
-		JOIN post on map.idx = post.map_idx
-		AND map.latitude=#{lat}
-		AND map.longtitude=#{lng}
+		JOIN post on map.id = post.map_id
+		AND map.id = #{mapId}
 	</select>
 </mapper>
