@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
 <%@ include file="layout/header.jsp" %>
+<%@ include file="layout/nonav.jsp" %>
 
 <%
 	response.setHeader("Cache-Control","no-cache");
@@ -9,8 +10,8 @@
 	response.setDateHeader("Expires",0);
 %>
 
-<c:if test="${ !empty loginFailMsg }">
-<script>
+<c:if test="${ !empty loginFailMsg && loginFailMsg != '' }">
+<script >
 M.toast({
 	html: '<c:out value="${ loginFailMsg }" />',
 	classes: 'red',
@@ -18,7 +19,7 @@ M.toast({
 </script>
 </c:if>
 
-<c:if test="${ !empty logoutMsg }">
+<c:if test="${ !empty logoutMsg && logoutMsg != '' }">
 <script>
 M.toast({
 	html: '<c:out value="${ logoutMsg }" />',
@@ -112,14 +113,14 @@ $(document).ready(function() {
 
 				<div class="row">
 					<div class="input-field col s12">
-						<input class='validate' type="email" name="email" id="email" />
+						<input class='validate' type="email" name="email" id="email" required />
 						<label for="email">이메일을 입력해 주세요.</label>
 					</div>
 				</div>
 
 				<div class="row">
 					<div class="input-field col s12">
-						<input class="validate" type="password" name="password" id="password" />
+						<input class="validate" type="password" name="password" id="password" required />
 						<label for="password">비밀번호를 입력해 주세요.</label>
 					</div>
 					<div class="input-field col s12">
