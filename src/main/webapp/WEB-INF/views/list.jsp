@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="layout/header.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChK7nSU2T3oBzB1zR2hjUqsRJIRDwFkv0&libraries=places&callback=initAutocomplete" async defer></script>
+
 <style>
+
 
 #map {
 	width: 100%;
@@ -26,7 +30,7 @@ html, body {
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-#pac-input {
+#pac-input{
 	background-color: #fff;
 	font-family: Roboto;
 	font-size: 15px;
@@ -35,8 +39,15 @@ html, body {
 	padding: 0 11px 0 13px;
 	text-overflow: ellipsis;
 	width: 300px;
+	margin-top: 0.5em;
 }
 
+#btnRegister{
+	margin-top: 0.75em;
+    z-index: 1000;
+    left: 440px;
+    position: absolute;
+}
 #pac-input:focus {
 	border-color: #4d90fe;
 }
@@ -118,8 +129,9 @@ html, body {
 
 <%@ include file="layout/nav.jsp" %>
 
-	<input id="pac-input" class="controls" type="text"
-		placeholder="Search Box">
+	<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+	<a class="waves-effect waves-light btn modal-trigger" id="btnRegister" href="#modal1">등록</a>
+		
 	<div id="map"></div>
 	<script>
     var lat="";
@@ -224,7 +236,6 @@ html, body {
       }
     </script>
 
-	<a class="waves-effect waves-light btn modal-trigger" href="#modal1">등록</a>
 
 	<!-- Modal Structure -->
 	<form id="frm">
@@ -273,8 +284,3 @@ html, body {
 
 		</div>
 	</div>
-
-	
-	</main>
-</body>
-</html>
