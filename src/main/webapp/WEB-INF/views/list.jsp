@@ -96,24 +96,14 @@ html, body {
   	            alert('내용을 기입해주세요!');
   	            return false;
             }
+			var formData = new FormData($("#frm")[0]);
         	
             $.ajax({
                 url:'/register',
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept" : "application/json"
-                },
-                //contentType: 'multipart/form-data',
-                dataType:'text',
-                data: JSON.stringify({
-                    lat: $('#lat').val(),
-                    lng: $("#lng").val(),
-                    title : $("#title").val(),
-                    content : $("#content").val(),
-                    placeName : $("#placeName").val(),
-                    mapId : $("#mapId").val()
-                }),
+            	type: 'POST',
+                processData : false,
+                contentType : false,
+                data: formData,
                 success: function(data){
                     console.log('register');
                 },
@@ -238,12 +228,13 @@ html, body {
 
 
 	<!-- Modal Structure -->
-	<form id="frm">
+	<form id="frm" enctype="multipart/form-data">
 		<div id="modal1" class="modal">
 			<div class="modal-content"> 
 				장소 : <input type="text" name="placeName" id="placeName" required> 
 				제목 : <input type="text" name="title" id="title" required> 
 				내용 : <input type="text" name="content" id="content">
+				파일 : <input type="file" name="file" id="file">
 					<input type="hidden" name="mapId" id="mapId">
 					<input type="hidden" name="lat" id="lat">
 					<input type="hidden" name="lng" id="lng">
