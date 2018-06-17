@@ -12,7 +12,7 @@
 			#{placeName}
 		)
 	</insert>
-	<insert id="postMap">
+	<insert id="postMap" useGeneratedKeys="true" keyProperty="idx">
 		INSERT INTO post(title, content, map_id, member_id)
 		VALUES(
 			#{title},
@@ -23,7 +23,6 @@
 	</insert>
 	
 	<select id ="list" resultType = "MapRegisterVO">
-	
 		SELECT
 			post.title AS "title",
 			post.content AS "content",
