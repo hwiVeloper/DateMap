@@ -199,6 +199,7 @@ html, body {
                                       .append($('<td>').append(obj[i].title).append($('</td>')))
                                       .append($('<td>').append(obj[i].content).append($('</td>')))
                                       .append($('<td>').append(obj[i].memberId).append($('</td>')))
+                                      .append($('<td>').append(obj[i].fileName).append($('</td>')))
                               );
  					  } 
                   },
@@ -257,19 +258,11 @@ html, body {
 						<th>제목</th>
 						<th>내용</th>
 						<th>작성자</th>
+						<th>사진</th>
 					</tr>
 				</thead>
 
-				<tbody id="tbody">
-				<c:forEach items="${list}" var="data">
-					<tr>
-						<td><a class="modal-trigger" href="#modal2">${data.title}</a></td>
-						<td>${data.content}</td>
-						<td>${data.memberId}</td>
-					</tr>
-					
-				</c:forEach>
-				</tbody>
+				<tbody id="tbody"></tbody>
 			</table>
 
 

@@ -1,5 +1,7 @@
 package com.datemap.controller;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,9 +12,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.imgscalr.Scalr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -32,6 +37,7 @@ import com.datemap.dao.FileDAO;
 import com.datemap.dao.MapDAO;
 import com.datemap.dto.FileDTO;
 import com.datemap.dto.MapDTO;
+import com.datemap.dto.MemberDTO;
 import com.datemap.dto.PostDTO;
 import com.datemap.vo.MapRegisterVO;
 
@@ -60,12 +66,18 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<String> register(@RequestParam("file") MultipartFile uploadFile,MultipartHttpServletRequest req) {
+	public ResponseEntity<String> register(@RequestParam("file") MultipartFile uploadFile,MultipartHttpServletRequest req, HttpSession session, Model model) {
 		ResponseEntity<String> entity = null;
+		
+		// session example
+		MemberDTO sess = (MemberDTO) session.getAttribute("session");
+		
+		model.addAttribute("sessionData", sess);
 		
 		MultipartFile file = req.getFile("file");
 		String path = "";
         String fileName = "";
+        
         
         OutputStream out = null;
         PrintWriter printWriter = null;
@@ -105,7 +117,9 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 			
 			int pos = file.getOriginalFilename().lastIndexOf( "." );
 			String extension = file.getOriginalFilename().substring( pos + 1 );
-			
+			System.out.println("fileType*********"+file.getOriginalFilename());
+			String[] arr = file.getOriginalFilename().split("\\.");
+			String ext = arr[arr.length-1];
 			fileName += ".".concat(extension);
 			
 			
@@ -113,9 +127,11 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 
             
             String uploadPath = req.getSession().getServletContext().getRealPath("/upload");
-//            String attachPath = "/upload";
             File filecheck = new File(uploadPath);
-
+            String orgImg = uploadPath+insertedPostId+"."+ext;//원본파일
+            String thumbImg = uploadPath+insertedPostId+"_s"+ext;//썸네일파일
+            int thumbWidth = 160 ;//썸네일 가로
+            int thumbHeight = 160 ;//썸네일 세로
             
             System.out.println("UtilFile fileUpload final fileName : " + fileName);
             System.out.println("UtilFile fileUpload file : " + file);
@@ -123,8 +139,21 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
             out = new FileOutputStream(filecheck + "/" + fileName);
             
             System.out.println("UtilFile fileUpload out : " + out);
-            
+
             out.write(bytes);
+            
+            BufferedImage sourceImg = ImageIO.read(new File(uploadPath + path, fileName));
+    		
+    		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT,100);
+    		
+    		String thumbnailName = uploadPath + path + File.separator + "s_" + fileName;
+    		
+    		File newFile = new File(thumbnailName);
+    		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+    		
+    		ImageIO.write(destImg, formatName.toUpperCase(), newFile);
+
+      
 			
 			//파일 업로드 db 처리
 			FileDTO fileDto = new FileDTO();
