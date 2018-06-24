@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -21,7 +22,7 @@ public class MypageController {
 	@Inject
 	private MypageService service;
 	
-	@RequestMapping(value="/main", method = RequestMethod.GET)
+	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String mypageMain(Model model, HttpSession session) throws Exception{
 		
 		model.addAttribute("session", session.getAttribute("session"));
@@ -33,5 +34,13 @@ public class MypageController {
 		model.addAttribute("mypageList", service.selectMyList(sess.getId()));
 		
 		return "mypage/main";
+	}
+	
+	@RequestMapping(value="/detail/{idx}", method=RequestMethod.GET)
+	public String view(Model model, HttpSession session, @PathVariable("idx") Integer postIdx) throws Exception {
+		
+		
+		
+		return "mypage/detail";
 	}
 }

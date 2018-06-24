@@ -1,33 +1,32 @@
 package com.datemap.vo;
 
-public class MyPageListVO {
-	private String id;
-	private String name;
-	private String nickname;
+public class MyPageDetailVO {
+	private String idx;
 	private String title;
 	private String content;
-	private String postIdx;
 	private String mapId;
 	private String placeName;
 	private String fileName;
+	private String memberId;
+	private String memberName;
 	
-	public String getId() {
-		return id;
+	public String getMemberId() {
+		return memberId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
-	public String getName() {
-		return name;
+	public String getMemberName() {
+		return memberName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
-	public String getNickname() {
-		return nickname;
+	public String getIdx() {
+		return idx;
 	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setIdx(String idx) {
+		this.idx = idx;
 	}
 	public String getTitle() {
 		return title;
@@ -40,12 +39,6 @@ public class MyPageListVO {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public String getPostIdx() {
-		return postIdx;
-	}
-	public void setPostIdx(String postIdx) {
-		this.postIdx = postIdx;
 	}
 	public String getMapId() {
 		return mapId;

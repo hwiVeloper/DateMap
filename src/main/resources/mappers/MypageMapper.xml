@@ -12,7 +12,8 @@
 			p.content AS content,
 			p.idx AS postIdx,
 			m.id AS mapId,
-			m.place_name AS placeName
+			m.place_name AS placeName,
+			(SELECT file_name FROM file WHERE post_idx = p.idx) AS fileName
 		FROM member c
 		   , post p
 		   , map m
@@ -21,5 +22,23 @@
 		AND p.map_id = m.id
 		AND c.id = #{id}
 		ORDER BY p.idx
+	</select>
+	
+	<select id="selectMyDetail" resultType="MyPageDetailVO">
+		SELECT
+			idx AS idx,
+			title AS title,
+			content AS content,
+			map_id AS mapId,
+			place_name AS placeName,
+			(SELECT file_name FROM file f WHERE post_idx = p.idx) AS fileName,
+			b.id AS memberId,
+			b.name AS memberName
+		FROM post p,
+			 map m,
+			 member b
+		WHERE p.map_id = m.id
+		AND p.member_id = b.id
+		AND p.idx = #{idx}
 	</select>
 </mapper>
