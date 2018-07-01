@@ -13,7 +13,10 @@
 			p.idx AS postIdx,
 			m.id AS mapId,
 			m.place_name AS placeName,
-			(SELECT file_name FROM file WHERE post_idx = p.idx) AS fileName
+			(SELECT CONCAT(post_idx, CASE file_type WHEN 'image/jpeg' THEN '.jpg'
+													WHEN 'image/gif'  THEN '.gif'
+													WHEN 'image/png'  THEN '.png'
+													ELSE '' END) FROM file WHERE post_idx = p.idx) AS fileName
 		FROM member c
 		   , post p
 		   , map m

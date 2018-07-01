@@ -32,7 +32,7 @@
 	<div class="row">
 	<c:forEach items="${ mypageList }" var="item">
 		<div class="col s3">
-			<img src="${ item.fileName }" onerror="this.src='/resources/noimage.png'" alt="" class="responsive-img" />
+			<img src="resources/upload/${ item.fileName }" onerror="this.src='/resources/noimage.png'" alt="" class="responsive-img" />
 		</div>
 	</c:forEach>
 	</div>

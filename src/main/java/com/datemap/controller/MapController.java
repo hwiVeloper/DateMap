@@ -7,14 +7,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
-import java.util.Date;
-
 import java.util.List;
 import java.util.Locale;
 
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.imgscalr.Scalr;
@@ -24,14 +21,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.datemap.dao.FileDAO;
 import com.datemap.dao.MapDAO;
@@ -107,46 +102,13 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 			postDto.setMapId(reqToDto(req, "mapId"));
 			postDto.setMemberId(sess.getId());
 		
-		MultipartFile file = req.getFile("fileName");
+		file = req.getFile("fileName");
 		
 		logger.info("title ===> " + req.getParameter("title"));
 		logger.info("originalFilename ==> " + file.getOriginalFilename());
 		logger.info("fileSize ===> " + file.getSize());
 		logger.info("contentType ===> " + file.getContentType());
 		
-		try {
-//			logger.info("originalName :" + file.getOriginalFilename());
-//			logger.info("size : " + file.getSize());
-//			logger.info("contentType : " + file.getContentType());
-//			logger.info("****" + vo.toString());
-//			System.exit(1);
-//			logger.info("****"+vo.toString());
-//			
-//			MapRegisterVO rvo = new MapRegisterVO();
-//			rvo.setLat(rvo.getLat());
-//			rvo.setLng(rvo.getLng());
-//		    List<MapRegisterVO> list = mapdao.list(rvo);
-//		      
-//		    if(list.size() == 0){
-//		    	logger.info("11111"+vo.toString());
-//				MapDTO mapDto = new MapDTO();
-//				mapDto.setId(vo.getMapId());
-//				mapDto.setLatitude(vo.getLat());
-//				mapDto.setLongtitude(vo.getLng());
-//				mapDto.setPlaceName(vo.getPlaceName());
-//
-//				mapdao.createMap(mapDto);
-//			
-//		    }
-//		    logger.info("2222"+vo.toString());
-//			PostDTO postDto = new PostDTO();
-//			postDto.setTitle(vo.getTitle());
-//			postDto.setContent(vo.getContent());
-//			postDto.setMapId(vo.getMapId());
-//			postDto.setMemberId("hwi");
-//		
-//			mapdao.createPost(postDto);
-			
 			int insertedPostId = postDto.getIdx();
 			
 			logger.info("inserted post id ===> " + insertedPostId);
@@ -156,8 +118,7 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 			int pos = file.getOriginalFilename().lastIndexOf( "." );
 			String extension = file.getOriginalFilename().substring( pos + 1 );
 			System.out.println("fileType*********"+file.getOriginalFilename());
-			String[] arr = file.getOriginalFilename().split("\\.");
-			String ext = arr[arr.length-1];
+
 			fileName += ".".concat(extension);
 			
 			
@@ -166,10 +127,6 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
             
             String uploadPath = req.getSession().getServletContext().getRealPath("/upload");
             File filecheck = new File(uploadPath);
-            String orgImg = uploadPath+insertedPostId+"."+ext;//������
-            String thumbImg = uploadPath+insertedPostId+"_s"+ext;//���������
-            int thumbWidth = 160 ;//����� ����
-            int thumbHeight = 160 ;//����� ����
             
             System.out.println("UtilFile fileUpload final fileName : " + fileName);
             System.out.println("UtilFile fileUpload file : " + file);
@@ -193,7 +150,7 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 
       
 			
-			//���� ��ε� db ó��
+			//占쏙옙占쏙옙 占쏙옙琯占� db 처占쏙옙
 			FileDTO fileDto = new FileDTO();
 			fileDto.setPostIdx(insertedPostId);
 			fileDto.setFileName(file.getOriginalFilename());
@@ -217,9 +174,9 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-
+            } 
 		}
+		
 		return entity;
 	}
 
