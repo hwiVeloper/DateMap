@@ -8,6 +8,8 @@ public class MapRegisterVO {
 	private String mapId;
 	private String memberId;
 	private String placeName;
+	private String fileName;
+	
 	public double getLat() {
 		return lat;
 	}
@@ -50,10 +52,17 @@ public class MapRegisterVO {
 	public void setPlaceName(String placeName) {
 		this.placeName = placeName;
 	}
+	
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 	@Override
 	public String toString() {
 		return "MapRegisterVO [lat=" + lat + ", lng=" + lng + ", title=" + title + ", content=" + content + ", mapId="
-				+ mapId + ", memberId=" + memberId + ", placeName=" + placeName + "]";
+				+ mapId + ", memberId=" + memberId + ", placeName=" + placeName + ", fileName=" + fileName + "]";
 	}
 	
 }

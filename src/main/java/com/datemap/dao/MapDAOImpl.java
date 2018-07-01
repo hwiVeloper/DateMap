@@ -31,10 +31,12 @@ public class MapDAOImpl implements MapDAO{
 	public void createMap(MapDTO dto) throws Exception {
 		session.insert(namespace + ".createMap", dto);
 	}
-
+	
 	@Override
-	public void createPost(PostDTO dto) throws Exception {
-		session.insert(namespace + ".postMap", dto);
+	public int createPost(PostDTO dto) throws Exception {
+		int id = session.insert(namespace + ".postMap", dto);
+		
+		return id;
 		
 	}
 }

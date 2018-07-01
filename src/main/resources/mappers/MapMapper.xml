@@ -12,7 +12,7 @@
 			#{placeName}
 		)
 	</insert>
-	<insert id="postMap">
+	<insert id="postMap" useGeneratedKeys="true" keyProperty="idx">
 		INSERT INTO post(title, content, map_id, member_id)
 		VALUES(
 			#{title},
@@ -23,14 +23,14 @@
 	</insert>
 	
 	<select id ="list" resultType = "MapRegisterVO">
-	
 		SELECT
-			post.title AS "title",
-			post.content AS "content",
-			post.member_id AS "memberId",
-			post.map_id AS "mapId"
+			p.title AS "title",    
+			p.content AS "content",
+			p.member_id AS "memberId",
+			p.map_id AS "mapId",
+			(SELECT post_idx FROM file WHERE post_idx = p.idx) AS fileName
 		FROM map
-		JOIN post on map.id = post.map_id
+		JOIN post p on map.id = p.map_id
 		AND map.id = #{mapId}
 	</select>
 </mapper>

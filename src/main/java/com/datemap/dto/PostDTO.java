@@ -1,11 +1,18 @@
 package com.datemap.dto;
 
 public class PostDTO {
+	private Integer idx;
 	private String title;
 	private String content;
 	private String mapId;
 	private String memberId;
 	
+	public Integer getIdx() {
+		return idx;
+	}
+	public void setIdx(Integer idx) {
+		this.idx = idx;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -32,7 +39,8 @@ public class PostDTO {
 	}
 	@Override
 	public String toString() {
-		return "PostDTO [title=" + title + ", content=" + content + ", mapId=" + mapId + ", memberId=" + memberId + "]";
+		return "PostDTO [idx=" + idx + ", title=" + title + ", content=" + content + ", mapId=" + mapId + ", memberId="
+				+ memberId + "]";
 	}
 	
 	

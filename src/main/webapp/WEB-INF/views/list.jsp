@@ -96,21 +96,13 @@ html, body {
   	            alert('내용을 기입해주세요!');
   	            return false;
             }
+			var formData = new FormData($("#frm")[0]);
         	
         	var formData = new FormData($("#frm")[0]);
         	
             $.ajax({
                 url:'/register',
-            	type: 'POST',
-                /* data: JSON.stringify({
-                    lat: $('#lat').val(),
-                    lng: $("#lng").val(),
-                    title: $("#title").val(),
-                    content: $("#content").val(),
-                    placeName: $("#placeName").val(),
-                    mapId: $("#mapId").val(),
-                    fileName: formData.get("fileName")
-                }), */
+            	  type: 'POST',
                 processData : false,
                 contentType : false,
                 data: formData,
@@ -209,6 +201,7 @@ html, body {
                                       .append($('<td>').append(obj[i].title).append($('</td>')))
                                       .append($('<td>').append(obj[i].content).append($('</td>')))
                                       .append($('<td>').append(obj[i].memberId).append($('</td>')))
+                                      .append($('<td>').append(obj[i].fileName).append($('</td>')))
                               );
  					  } 
                   },
@@ -244,7 +237,7 @@ html, body {
 				장소 : <input type="text" name="placeName" id="placeName" required> 
 				제목 : <input type="text" name="title" id="title" required> 
 				내용 : <input type="text" name="content" id="content">
-				파일 : <input type="file" name="fileName" id="file">
+				파일 : <input type="file" name="file" id="file">
 					<input type="hidden" name="mapId" id="mapId">
 					<input type="hidden" name="lat" id="lat">
 					<input type="hidden" name="lng" id="lng">
@@ -267,19 +260,11 @@ html, body {
 						<th>제목</th>
 						<th>내용</th>
 						<th>작성자</th>
+						<th>사진</th>
 					</tr>
 				</thead>
 
-				<tbody id="tbody">
-				<c:forEach items="${list}" var="data">
-					<tr>
-						<td><a class="modal-trigger" href="#modal2">${data.title}</a></td>
-						<td>${data.content}</td>
-						<td>${data.memberId}</td>
-					</tr>
-					
-				</c:forEach>
-				</tbody>
+				<tbody id="tbody"></tbody>
 			</table>
 
 
