@@ -105,7 +105,7 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 			postDto.setTitle(reqToDto(req, "title"));
 			postDto.setContent(reqToDto(req, "content"));
 			postDto.setMapId(reqToDto(req, "mapId"));
-			postDto.setMemberId("hwi");
+			postDto.setMemberId(sess.getId());
 		
 			mapdao.createPost(postDto);
 			
