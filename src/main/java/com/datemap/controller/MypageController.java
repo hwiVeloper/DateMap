@@ -35,12 +35,4 @@ public class MypageController {
 		
 		return "mypage/main";
 	}
-	
-	@RequestMapping(value="/detail/{idx}", method=RequestMethod.GET)
-	public String view(Model model, HttpSession session, @PathVariable("idx") Integer postIdx) throws Exception {
-		
-		
-		
-		return "mypage/detail";
-	}
 }
