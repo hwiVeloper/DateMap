@@ -1,12 +1,12 @@
 package com.datemap.controller;
 
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+
 import java.util.Date;
 
 import java.util.List;
@@ -107,7 +107,45 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 			postDto.setMapId(reqToDto(req, "mapId"));
 			postDto.setMemberId(sess.getId());
 		
-			mapdao.createPost(postDto);
+		MultipartFile file = req.getFile("fileName");
+		
+		logger.info("title ===> " + req.getParameter("title"));
+		logger.info("originalFilename ==> " + file.getOriginalFilename());
+		logger.info("fileSize ===> " + file.getSize());
+		logger.info("contentType ===> " + file.getContentType());
+		
+		try {
+//			logger.info("originalName :" + file.getOriginalFilename());
+//			logger.info("size : " + file.getSize());
+//			logger.info("contentType : " + file.getContentType());
+//			logger.info("****" + vo.toString());
+//			System.exit(1);
+//			logger.info("****"+vo.toString());
+//			
+//			MapRegisterVO rvo = new MapRegisterVO();
+//			rvo.setLat(rvo.getLat());
+//			rvo.setLng(rvo.getLng());
+//		    List<MapRegisterVO> list = mapdao.list(rvo);
+//		      
+//		    if(list.size() == 0){
+//		    	logger.info("11111"+vo.toString());
+//				MapDTO mapDto = new MapDTO();
+//				mapDto.setId(vo.getMapId());
+//				mapDto.setLatitude(vo.getLat());
+//				mapDto.setLongtitude(vo.getLng());
+//				mapDto.setPlaceName(vo.getPlaceName());
+//
+//				mapdao.createMap(mapDto);
+//			
+//		    }
+//		    logger.info("2222"+vo.toString());
+//			PostDTO postDto = new PostDTO();
+//			postDto.setTitle(vo.getTitle());
+//			postDto.setContent(vo.getContent());
+//			postDto.setMapId(vo.getMapId());
+//			postDto.setMemberId("hwi");
+//		
+//			mapdao.createPost(postDto);
 			
 			int insertedPostId = postDto.getIdx();
 			
@@ -128,10 +166,10 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
             
             String uploadPath = req.getSession().getServletContext().getRealPath("/upload");
             File filecheck = new File(uploadPath);
-            String orgImg = uploadPath+insertedPostId+"."+ext;//¿øº»ÆÄÀÏ
-            String thumbImg = uploadPath+insertedPostId+"_s"+ext;//½æ³×ÀÏÆÄÀÏ
-            int thumbWidth = 160 ;//½æ³×ÀÏ °¡·Î
-            int thumbHeight = 160 ;//½æ³×ÀÏ ¼¼·Î
+            String orgImg = uploadPath+insertedPostId+"."+ext;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            String thumbImg = uploadPath+insertedPostId+"_s"+ext;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            int thumbWidth = 160 ;//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            int thumbHeight = 160 ;//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             
             System.out.println("UtilFile fileUpload final fileName : " + fileName);
             System.out.println("UtilFile fileUpload file : " + file);
@@ -155,7 +193,7 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 
       
 			
-			//ÆÄÀÏ ¾÷·Îµå db Ã³¸®
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Îµï¿½ db Ã³ï¿½ï¿½
 			FileDTO fileDto = new FileDTO();
 			fileDto.setPostIdx(insertedPostId);
 			fileDto.setFileName(file.getOriginalFilename());

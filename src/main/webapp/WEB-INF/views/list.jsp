@@ -98,9 +98,11 @@ html, body {
             }
 			var formData = new FormData($("#frm")[0]);
         	
+        	var formData = new FormData($("#frm")[0]);
+        	
             $.ajax({
                 url:'/register',
-            	type: 'POST',
+            	  type: 'POST',
                 processData : false,
                 contentType : false,
                 data: formData,
