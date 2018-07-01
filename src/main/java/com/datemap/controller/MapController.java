@@ -102,7 +102,8 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 			postDto.setMapId(reqToDto(req, "mapId"));
 			postDto.setMemberId(sess.getId());
 		
-		file = req.getFile("fileName");
+//			file = req.getFile("fileName");
+			mapdao.createPost(postDto);
 		
 		logger.info("title ===> " + req.getParameter("title"));
 		logger.info("originalFilename ==> " + file.getOriginalFilename());
