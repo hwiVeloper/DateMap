@@ -44,6 +44,7 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/" />
+			<mapping path="/mypage/**" />
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 	</interceptors>	

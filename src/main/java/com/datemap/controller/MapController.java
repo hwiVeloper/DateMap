@@ -1,5 +1,6 @@
 package com.datemap.controller;
 
+import java.io.File;
 import java.util.Date;
 
 import java.util.List;
@@ -17,6 +18,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.datemap.dao.MapDAO;
@@ -45,35 +49,48 @@ private static final Logger logger = LoggerFactory.getLogger(MapController.class
 			return "list";
 	}
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<String> register(@RequestBody MapRegisterVO vo) {
+	public ResponseEntity<String> register(MultipartHttpServletRequest req) {
 		ResponseEntity<String> entity = null;
-		try {
-			logger.info("****"+vo.toString());
-			
-			MapRegisterVO rvo = new MapRegisterVO();
-			rvo.setLat(rvo.getLat());
-			rvo.setLng(rvo.getLng());
-		    List<MapRegisterVO> list = mapdao.list(rvo);
-		      
-		    if(list.size() == 0){
-		    	logger.info("11111"+vo.toString());
-				MapDTO mapDto = new MapDTO();
-				mapDto.setId(vo.getMapId());
-				mapDto.setLatitude(vo.getLat());
-				mapDto.setLongtitude(vo.getLng());
-				mapDto.setPlaceName(vo.getPlaceName());
-
-				mapdao.createMap(mapDto);
-			
-		    }
-		    logger.info("2222"+vo.toString());
-			PostDTO postDto = new PostDTO();
-			postDto.setTitle(vo.getTitle());
-			postDto.setContent(vo.getContent());
-			postDto.setMapId(vo.getMapId());
-			postDto.setMemberId("hwi");
 		
-			mapdao.createPost(postDto);
+		MultipartFile file = req.getFile("fileName");
+		
+		logger.info("title ===> " + req.getParameter("title"));
+		logger.info("originalFilename ==> " + file.getOriginalFilename());
+		logger.info("fileSize ===> " + file.getSize());
+		logger.info("contentType ===> " + file.getContentType());
+		
+		try {
+//			logger.info("originalName :" + file.getOriginalFilename());
+//			logger.info("size : " + file.getSize());
+//			logger.info("contentType : " + file.getContentType());
+//			logger.info("****" + vo.toString());
+//			System.exit(1);
+//			logger.info("****"+vo.toString());
+//			
+//			MapRegisterVO rvo = new MapRegisterVO();
+//			rvo.setLat(rvo.getLat());
+//			rvo.setLng(rvo.getLng());
+//		    List<MapRegisterVO> list = mapdao.list(rvo);
+//		      
+//		    if(list.size() == 0){
+//		    	logger.info("11111"+vo.toString());
+//				MapDTO mapDto = new MapDTO();
+//				mapDto.setId(vo.getMapId());
+//				mapDto.setLatitude(vo.getLat());
+//				mapDto.setLongtitude(vo.getLng());
+//				mapDto.setPlaceName(vo.getPlaceName());
+//
+//				mapdao.createMap(mapDto);
+//			
+//		    }
+//		    logger.info("2222"+vo.toString());
+//			PostDTO postDto = new PostDTO();
+//			postDto.setTitle(vo.getTitle());
+//			postDto.setContent(vo.getContent());
+//			postDto.setMapId(vo.getMapId());
+//			postDto.setMemberId("hwi");
+//		
+//			mapdao.createPost(postDto);
 			
 			//model.addAttribute("event", event);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
